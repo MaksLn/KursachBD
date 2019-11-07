@@ -77,8 +77,8 @@ namespace KursachBD.Controllers.AccountControllers
                 new { userId = user.Id, code = code },
                 protocol: HttpContext.Request.Scheme);
             EmailService emailService = new EmailService();
-            await emailService.SendEmailAsync(email, "Confirm your account",
-                $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
+            await emailService.SendEmailAsync(email, "Подтверждение регистрации",
+                $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>подтвердить</a>");
 
         }
     }

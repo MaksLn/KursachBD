@@ -4,9 +4,8 @@
     ViewData["Title"] = "Registr";
 }
 
-<h1>Registr</h1>
 
-<h4>RegistrModel</h4>
+<h3>Регистрация</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -37,10 +36,10 @@
                 <input asp-for="PasswordConfirm" type="password" class="form-control" />
                 <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
             </div>
-            <div>
-                <label asp-for="Avatar" class="control-label"></label>
-                <input asp-for="Avatar" type="file" accept=".png,.jpg" class="form-control" />
-                <span asp-validation-for="Avatar" class="text-danger"></span>
+            <div class="form-group">
+                <label asp-for="Avatar" class="control-label">Фото</label>
+                <br />
+                <input asp-for="Avatar" type="file" accept=".png,.jpg" style="padding-left:0.3px" class="btn" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Регистрация" class="btn btn-primary" />
@@ -49,9 +48,6 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

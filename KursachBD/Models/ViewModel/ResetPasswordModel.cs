@@ -6,21 +6,22 @@ using System.Threading.Tasks;
 
 namespace KursachBD.Models.ViewModel
 {
-    public class LoginModel
+    public class ResetPasswordModel
     {
         [Required(ErrorMessage = "Заполните поле")]
-        [Display(Name = "Email")]
         [EmailAddress(ErrorMessage = "Некоректный Email")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Заполните поле")]
         [DataType(DataType.Password)]
-        [Display(Name = "Пароль")]
+        [Display(Name = "Новый пароль")]
         public string Password { get; set; }
+        [Required(ErrorMessage = "Заполните поле")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Подтвердите пароль")]
+        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
+        public string ConfirmPassword { get; set; }
 
-        [Display(Name = "Запомнить?")]
-        public bool RememberMe { get; set; }
-
-        public string ReturnUrl { get; set; }
+        public string Code { get; set; }
     }
 }
