@@ -1,0 +1,7 @@
+﻿@model  KursachBD.Models.ViewModel.Avatar;
+@{
+    ViewData["Title"] = "Photo";
+}
+
+ <img alt="@Model.Name" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Photo))" />
+

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using KursachBD.Models;
 using KursachBD.Models.DataBaseModel;
 using KursachBD.Models.ViewModel;
+using KursachBD.Service;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
@@ -37,7 +38,7 @@ namespace KursachBD.Controllers.AccountControllers
             {
                 User user = new User { Email = model.Email, UserName = model.Name, Year = new DateTime(model.Year, 1, 1), StatusComentId = 1 };
 
-                if (model.Avatar != null)
+                if (model.Avatar != null&&model.Avatar.ContentType=="image/png")
                 {
                     byte[] imageData = null;
                     using (var binaryReader = new BinaryReader(model.Avatar.OpenReadStream()))
@@ -51,7 +52,8 @@ namespace KursachBD.Controllers.AccountControllers
                 await _userManager.AddToRoleAsync(user, "user");
                 if (result.Succeeded)
                 {
-                    // установка куки
+                    SendCode(user, _userManager, model.Email);
+
                     await _signInManager.SignInAsync(user, true);
                     return RedirectToAction("Index", "Home");
                 }
@@ -64,6 +66,20 @@ namespace KursachBD.Controllers.AccountControllers
                 }
             }
             return View(model);
+        }
+
+        private async void SendCode(User user, UserManager<User> _userManager, string email)
+        {
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var callbackUrl = Url.Action(
+                "ConfirmEmail",
+                "Account",
+                new { userId = user.Id, code = code },
+                protocol: HttpContext.Request.Scheme);
+            EmailService emailService = new EmailService();
+            await emailService.SendEmailAsync(email, "Confirm your account",
+                $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
+
         }
     }
 }

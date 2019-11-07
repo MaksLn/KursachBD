@@ -31,7 +31,8 @@ namespace KursachBD
             services.AddDbContext<DBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("Connection")));
 
-            services.AddIdentity<User, UserRole>().AddEntityFrameworkStores<DBContext>();
+            services.AddIdentity<User, UserRole>().AddEntityFrameworkStores<DBContext>()
+                .AddDefaultTokenProviders();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
