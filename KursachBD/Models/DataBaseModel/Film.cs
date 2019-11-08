@@ -18,13 +18,14 @@ namespace KursachBD.Models.DataBaseModel
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public double Budget { get; set; }
+        public string Budget { get; set; }
         public DateTime Time { get; set; }
         public int CreateYearId { get; set; }
         public CreateYear Year { get; set; }
         public List<FilmsToCountrys> FilmsToCountrys { get; set; }
         public int? MPAAId { get; set; }
         public MPAA MPAA { get; set; }
+        public string Photo { get; set; }
         public int RetingId { get; set; }
         public Reting Reting { get; set; }
         public List<FilmsToGenres> FilmsToGenres { get; set; }

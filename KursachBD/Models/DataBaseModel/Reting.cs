@@ -11,8 +11,8 @@ namespace KursachBD.Models.DataBaseModel
         [Key]
         [Required]
         public int Id { get; set; }
-        public float UserStar { get; set; }
-        public float AllStar { get; set; }
+        public float? UserStar { get; set; }
+        public float? AllStar { get; set; }
         public string Discription { get; set; }
         public List<Film> Films { get; set; }
     }

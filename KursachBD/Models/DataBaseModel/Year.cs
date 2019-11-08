@@ -12,7 +12,7 @@ namespace KursachBD.Models.DataBaseModel
         [Required]
         public int Id { get; set; }
         [Required]
-        public DateTime Year { get; set; }
+        public int Year { get; set; }
         public List<Film> Films { get; set; }
     }
 }

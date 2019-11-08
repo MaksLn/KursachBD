@@ -1,8 +1,29 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IEnumerable<KursachBD.Models.ViewModel.ListFilmModel>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container">
+    <div class="row">
+        @foreach (var i in Model)
+        {
+            <div class="col-3" style="padding-bottom:20px">
+                <div class="card">
+                    <div class="card-header">
+                        <a href="/Films/Film/@i.Id">
+                            <img width="205px" src="@i.Photo" />
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        @i.Name
+                    </div>
+                    <div class="card-footer">
+                        @i.Year г.&nbsp;&nbsp;&nbsp;&nbsp; @i.Country
+                        <hr />
+                        <p>Рейтинг:&nbsp; @i.Star</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>

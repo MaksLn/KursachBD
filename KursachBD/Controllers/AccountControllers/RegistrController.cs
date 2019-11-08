@@ -52,7 +52,7 @@ namespace KursachBD.Controllers.AccountControllers
                 await _userManager.AddToRoleAsync(user, "user");
                 if (result.Succeeded)
                 {
-                    SendCode(user, _userManager, model.Email);
+                    await SendCode(user, _userManager, model.Email);
 
                     await _signInManager.SignInAsync(user, true);
                     return RedirectToAction("Index", "Home");
@@ -68,7 +68,7 @@ namespace KursachBD.Controllers.AccountControllers
             return View(model);
         }
 
-        private async void SendCode(User user, UserManager<User> _userManager, string email)
+        private async Task SendCode(User user, UserManager<User> _userManager, string email)
         {
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             var callbackUrl = Url.Action(
