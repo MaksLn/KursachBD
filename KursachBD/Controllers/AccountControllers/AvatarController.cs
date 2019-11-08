@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using KursachBD.Models;
 using KursachBD.Models.ViewModel;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KursachBD.Controllers.AccountControllers
@@ -19,26 +21,26 @@ namespace KursachBD.Controllers.AccountControllers
             {
                 var Name = RouteData.Values["Id"].ToString() == null ? "" : RouteData.Values["Id"].ToString();
 
-                    try
-                    {
-                        var result = dBContext.Users.Where(e => e.UserName == Name).FirstOrDefault().Photo;
+                try
+                {
+                    var result = dBContext.Users.Where(e => e.UserName == Name).FirstOrDefault().Photo;
 
-                        if (result != null)
-                        {
-                            return PartialView(new Avatar(result, Name));
-                        }
-                    }
-                    catch
+                    if (result != null)
                     {
-                        return PartialView(new Avatar(System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + @"\wwwroot\image\def.png"), Name));
+                        return base.File(result, "image/png");
                     }
+                }
+                catch
+                {
+                    return base.File(System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + @"\wwwroot\image\def.png"), "image/png");
+                }
             }
             catch
             {
-                return PartialView(new Avatar(System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + @"\wwwroot\image\def.png"), "anonim"));
+                return base.File(System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + @"\wwwroot\image\def.png"), "image/png"); ;
             }
 
-            return PartialView(new Avatar(System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + @"\wwwroot\image\def.png"), "anonim"));
+            return base.File(System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + @"\wwwroot\image\def.png"), "image/png");
         }
     }
 }

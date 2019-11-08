@@ -38,7 +38,7 @@ namespace KursachBD.Controllers.AccountControllers
             {
                 User user = new User { Email = model.Email, UserName = model.Name, Year = new DateTime(model.Year, 1, 1), StatusComentId = 1 };
 
-                if (model.Avatar != null&&model.Avatar.ContentType=="image/png")
+                if (model.Avatar != null&&(model.Avatar.ContentType=="image/png" || model.Avatar.ContentType == "image/jpeg"))
                 {
                     byte[] imageData = null;
                     using (var binaryReader = new BinaryReader(model.Avatar.OpenReadStream()))
