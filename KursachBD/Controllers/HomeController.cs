@@ -19,78 +19,17 @@ namespace KursachBD.Controllers
             this.dBContext = dBContext;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Index(int page=1)
         {
             var db = dBContext.Films.Include(e => e.Reting).Include(e=>e.Year).Include(e=>e.FilmsToCountrys).ThenInclude(e=>e.Country);
-            List<ListFilmModel> model = new List<ListFilmModel>();
+            ListFilmModel model = new ListFilmModel();
 
             foreach(var i in db)
             {
-                model.Add(new ListFilmModel() { Id = i.Id, Name = i.Name, Photo = i.Photo, Star = i.Reting.AllStar, Year = i.Year.Year,
+                model.ListFilms.Add(new ListFilm() { Id = i.Id, Name = i.Name, Photo = i.Photo, Star = i.Reting.AllStar, Year = i.Year.Year,
                     Country = i.FilmsToCountrys.Where(e=>e.FilmId==i.Id).FirstOrDefault().Country.Name});
-                model.Add(new ListFilmModel()
-                {
-                    Id = i.Id,
-                    Name = i.Name,
-                    Photo = i.Photo,
-                    Star = i.Reting.AllStar,
-                    Year = i.Year.Year,
-                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
-                });
-                model.Add(new ListFilmModel()
-                {
-                    Id = i.Id,
-                    Name = i.Name,
-                    Photo = i.Photo,
-                    Star = i.Reting.AllStar,
-                    Year = i.Year.Year,
-                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
-                });
-                model.Add(new ListFilmModel()
-                {
-                    Id = i.Id,
-                    Name = i.Name,
-                    Photo = i.Photo,
-                    Star = i.Reting.AllStar,
-                    Year = i.Year.Year,
-                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
-                });
-                model.Add(new ListFilmModel()
-                {
-                    Id = i.Id,
-                    Name = i.Name,
-                    Photo = i.Photo,
-                    Star = i.Reting.AllStar,
-                    Year = i.Year.Year,
-                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
-                });
-                model.Add(new ListFilmModel()
-                {
-                    Id = i.Id,
-                    Name = i.Name,
-                    Photo = i.Photo,
-                    Star = i.Reting.AllStar,
-                    Year = i.Year.Year,
-                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
-                });
-                model.Add(new ListFilmModel()
-                {
-                    Id = i.Id,
-                    Name = i.Name,
-                    Photo = i.Photo,
-                    Star = i.Reting.AllStar,
-                    Year = i.Year.Year,
-                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
-                }); model.Add(new ListFilmModel()
-                {
-                    Id = i.Id,
-                    Name = i.Name,
-                    Photo = i.Photo,
-                    Star = i.Reting.AllStar,
-                    Year = i.Year.Year,
-                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
-                });
-                model.Add(new ListFilmModel()
+                model.ListFilms.Add(new ListFilm()
                 {
                     Id = i.Id,
                     Name = i.Name,
@@ -100,8 +39,161 @@ namespace KursachBD.Controllers
                     Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
                 });
 
+                model.ListFilms.Add(new ListFilm()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Photo = i.Photo,
+                    Star = i.Reting.AllStar,
+                    Year = i.Year.Year,
+                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
+                });
+
+                model.ListFilms.Add(new ListFilm()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Photo = i.Photo,
+                    Star = i.Reting.AllStar,
+                    Year = i.Year.Year,
+                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
+                });
+
+                model.ListFilms.Add(new ListFilm()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Photo = i.Photo,
+                    Star = i.Reting.AllStar,
+                    Year = i.Year.Year,
+                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
+                });
+                model.ListFilms.Add(new ListFilm()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Photo = i.Photo,
+                    Star = i.Reting.AllStar,
+                    Year = i.Year.Year,
+                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
+                });
+                model.ListFilms.Add(new ListFilm()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Photo = i.Photo,
+                    Star = i.Reting.AllStar,
+                    Year = i.Year.Year,
+                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
+                });
+
+                model.ListFilms.Add(new ListFilm()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Photo = i.Photo,
+                    Star = i.Reting.AllStar,
+                    Year = i.Year.Year,
+                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
+                });
+
+                model.ListFilms.Add(new ListFilm()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Photo = i.Photo,
+                    Star = i.Reting.AllStar,
+                    Year = i.Year.Year,
+                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
+                });
+                model.ListFilms.Add(new ListFilm()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Photo = i.Photo,
+                    Star = i.Reting.AllStar,
+                    Year = i.Year.Year,
+                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
+                });
+
+                model.ListFilms.Add(new ListFilm()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Photo = i.Photo,
+                    Star = i.Reting.AllStar,
+                    Year = i.Year.Year,
+                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
+                });
+
+                model.ListFilms.Add(new ListFilm()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Photo = i.Photo,
+                    Star = i.Reting.AllStar,
+                    Year = i.Year.Year,
+                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
+                });
+
+                model.ListFilms.Add(new ListFilm()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Photo = i.Photo,
+                    Star = i.Reting.AllStar,
+                    Year = i.Year.Year,
+                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
+                });
+
+                model.ListFilms.Add(new ListFilm()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Photo = i.Photo,
+                    Star = i.Reting.AllStar,
+                    Year = i.Year.Year,
+                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
+                });
+                model.ListFilms.Add(new ListFilm()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Photo = i.Photo,
+                    Star = i.Reting.AllStar,
+                    Year = i.Year.Year,
+                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
+                });
+                model.ListFilms.Add(new ListFilm()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Photo = i.Photo,
+                    Star = i.Reting.AllStar,
+                    Year = i.Year.Year,
+                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
+                });
+                model.ListFilms.Add(new ListFilm()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Photo = i.Photo,
+                    Star = i.Reting.AllStar,
+                    Year = i.Year.Year,
+                    Country = i.FilmsToCountrys.Where(e => e.FilmId == i.Id).FirstOrDefault().Country.Name
+                });
 
             }
+
+            int pageSize = 4;
+
+            var count = model.ListFilms.Count();
+            var items = model.ListFilms.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+
+            model.PageViewModel = pageViewModel;
+            model.ListFilms = items;
 
             return View(model);
         }

@@ -1,29 +1,45 @@
-﻿@model IEnumerable<KursachBD.Models.ViewModel.ListFilmModel>
+﻿@model KursachBD.Models.ViewModel.ListFilmModel
+
+@addTagHelper "*, KursachBD"
 
 @{
     ViewData["Title"] = "Index";
 }
 <div class="container">
     <div class="row">
-        @foreach (var i in Model)
+        @foreach (var i in Model.ListFilms)
         {
             <div class="col-3" style="padding-bottom:20px">
-                <div class="card">
-                    <div class="card-header">
-                        <a href="/Films/Film/@i.Id">
-                            <img width="205px" src="@i.Photo" />
-                        </a>
+                <a style="text-decoration: none;color: #000 !important;" href="/Films/Film/@i.Id">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <img class="card-img" src="@i.Photo" />
+                        </div>
+                        <div class="card-body">
+                            @i.Name
+                        </div>
+                        <div class="card-footer">
+                            @i.Year г.&nbsp;&nbsp;&nbsp;&nbsp; @i.Country
+                            <hr />
+                            <p style="margin-bottom:0px">Рейтинг:&nbsp; @i.Star</p>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        @i.Name
-                    </div>
-                    <div class="card-footer">
-                        @i.Year г.&nbsp;&nbsp;&nbsp;&nbsp; @i.Country
-                        <hr />
-                        <p>Рейтинг:&nbsp; @i.Star</p>
-                    </div>
-                </div>
+                </a>
             </div>
         }
+    </div>
+    <div class="row">
+        @if (Model.PageViewModel.HasNextPage && Model.PageViewModel.HasPreviousPage)
+        {
+            <div class="col-sm-4"></div>
+        }
+        else
+        {
+            <div class="col-sm-5"></div>
+        }
+        <div class="col-sm-4">
+            <page-link page-model="Model.PageViewModel" page-action="Index"></page-link>
+        </div>
     </div>
 </div>

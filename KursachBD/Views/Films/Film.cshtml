@@ -1,0 +1,88 @@
+﻿@model KursachBD.Models.DataBaseModel.Film
+
+@{
+    ViewData["Title"] = "Film";
+}
+
+<link rel="stylesheet" href="~/css/Star.css" />
+
+<div class="container">
+    <div class=" row">
+        <div class="col-sm-5">
+            <img class="img-fluid" src="@Model.Photo" />
+        </div>
+        <div style="padding-left:0px" class="col-sm-7">
+            <h4>@Model.Name</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">
+                    Год:
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Year.Year)
+                </dd>
+                <dt class="col-sm-3">
+                    Бюджет:
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Budget)
+                </dd>
+                <dt class="col-sm-3">
+                    Время:
+                </dt>
+                <dd class="col-sm-9">
+                    @{ var i = @Model.Time.Minute + @Model.Time.Hour * 60;}
+                    @i минуты
+                </dd>
+                <dt class="col-sm-3">
+                    MPAA:
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.MPAA.Mpaa)
+                </dd>
+                <dt class="col-sm-3">
+                    Рейтинг:
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Reting.AllStar)
+                </dd>
+                <dt class="col-sm-3">
+                    Рейтинг пользователей:
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Reting.UserStar)
+                </dd>
+                <dt class="col-sm-3">
+                    Поставить оценку:
+                </dt>
+                <dd style="padding-left:18px" class="col-sm-9">
+                    <div class="rating">
+                        <input @ViewData["checked10"] class="ratingInput" onclick="sendRating(this.value)" type="radio" id="star10" name="rating" value="10" /><label for="star10" title="Rocks!">5 stars</label>
+                        <input @ViewData["checked9"] class="ratingInput" onclick="sendRating(this.value)" type="radio" id="star9" name="rating" value="9" /><label for="star9" title="Rocks!">4 stars</label>
+                        <input @ViewData["checked8"] class="ratingInput" onclick="sendRating(this.value)" type="radio" id="star8" name="rating" value="8" /><label for="star8" title="Pretty good">3 stars</label>
+                        <input @ViewData["checked7"] class="ratingInput" onclick="sendRating(this.value)" type="radio" id="star7" name="rating" value="7" /><label for="star7" title="Pretty good">2 stars</label>
+                        <input @ViewData["checked6"] class="ratingInput" onclick="sendRating(this.value)" type="radio" id="star6" name="rating" value="6" /><label for="star6" title="Normal">1 star</label>
+                        <input @ViewData["checked5"] class="ratingInput" onclick="sendRating(this.value)" type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Normal">5 stars</label>
+                        <input @ViewData["checked4"] class="ratingInput" onclick="sendRating(this.value)" type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Kinda bad">4 stars</label>
+                        <input @ViewData["checked3"] class="ratingInput" onclick="sendRating(this.value)" type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Kinda bad">3 stars</label>
+                        <input @ViewData["checked2"] class="ratingInput" onclick="sendRating(this.value)" type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Bad">2 stars</label>
+                        <input @ViewData["checked1"] class="ratingInput" onclick="sendRating(this.value)" type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Bad">1 star</label>
+                    </div>
+                </dd>
+            </dl>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function sendRating(starId)
+    {
+        fetch("https://localhost:44360/APIRating/Rating/" + "@User.Identity.Name" + "?value=" + starId+"&filmId="+"@Model.Id", {
+        credentials: 'same-origin',
+        method: 'POST',
+        'Content-Type': 'application/json'
+        }).then(response => response.status)
+            .then(result => console.log(result.toString()))
+    }
+</script>

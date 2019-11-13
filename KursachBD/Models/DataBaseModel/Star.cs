@@ -14,7 +14,7 @@ namespace KursachBD.Models.DataBaseModel
         public float? Star { get; set; }
         public int UserFilmId { get; set; }
         public UserFilm UserFilm { get; set; }
-        public int UserId { get; set; }
+        public string UserId1 { get; set; }
         public User User { get; set; }
 
     }
