@@ -9,24 +9,37 @@
     <div class="row">
         @foreach (var i in Model.ListFilms)
         {
-            <div class="col-3" style="padding-bottom:20px">
-                <a style="text-decoration: none;color: #000 !important;" href="/Films/Film/@i.Id">
+        <div class="col-3" style="padding-bottom:20px">
+            <a style="text-decoration: none;color: #000 !important;" href="/Films/Film/@i.Id">
 
-                    <div class="card">
-                        <div class="card-header">
-                            <img class="card-img" src="@i.Photo" />
-                        </div>
-                        <div class="card-body">
-                            @i.Name
-                        </div>
-                        <div class="card-footer">
-                            @i.Year г.&nbsp;&nbsp;&nbsp;&nbsp; @i.Country
-                            <hr />
-                            <p style="margin-bottom:0px">Рейтинг:&nbsp; @i.Star</p>
-                        </div>
+                <div class="card">
+                    <div class="card-header">
+                        <img class="card-img" src="@i.Photo" />
                     </div>
-                </a>
+                    <div class="card-body">
+                        @i.Name
+                    </div>
+                    <div class="card-footer">
+                        @i.Year г.&nbsp;&nbsp;&nbsp;&nbsp; @i.Country
+                        <hr />
+                        <p style="margin-bottom:0px">Рейтинг:&nbsp; @i.Star</p>
+                    </div>
+                </div>
+            </a>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-btn ">
+                            <button class="btn btn-secondary btn-sm" type="button" tabindex="-1">Добавить</button>
+                        </span>
+                        <select id="mySelect" class="form-control text-secondary custom-select-sm">
+                            <option selected class="active">⧗ Смотреть позже</option>
+                            <option>★ Понравившийся</option>
+                        </select>
+                    </div>
+                </div>
             </div>
+        </div>
         }
     </div>
     <div class="row">

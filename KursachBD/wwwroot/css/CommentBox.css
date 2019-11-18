@@ -1,0 +1,59 @@
+﻿.comment-box {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    width: 80%;
+    position: relative;
+    background: #fff;
+    border-radius: 10px 10px 10px 10px;
+    display: inline-flex;
+}
+
+    .comment-box > p {
+        padding: 5px 10px;
+    }
+
+.heading {
+    width: auto;
+    display: -webkit-box;
+    margin: 2px 4px 2px 2px;
+}
+
+    .heading > img {
+        width: 100px;
+        border-radius: 5px;
+    }
+
+    .heading > a {
+        text-decoration: none;
+        color: blue;
+    }
+
+    .heading > .h-in {
+        margin: 1px 5px;
+        width: 85%;
+    }
+
+.h-in > p {
+    padding: 0 3px 0 0;
+}
+
+.cont {
+    margin: 4px 5px 0px 0;
+}
+
+.c-f {
+    margin-bottom: 5px;
+}
+
+    .c-f > a:first-child {
+        color: red;
+        border: 1px solid red;
+    }
+
+    .c-f > a > .glyphicon:first-child {
+        top: 3px;
+    }
+
+    .c-f > .btn {
+        border-radius: 30px;
+    }

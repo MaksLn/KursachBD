@@ -4,27 +4,33 @@ using System.Linq;
 using System.Threading.Tasks;
 using KursachBD.Models;
 using KursachBD.Models.DataBaseModel;
+using KursachBD.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace KursachBD.Controllers.APIControllers
 {
-    public class APIRatingController : Controller
+    public class APIUserController : Controller
     {
         private DBContext dBContext { get; set; }
 
-        public APIRatingController(DBContext dBContext)
+        public APIUserController(DBContext dBContext)
         {
             this.dBContext = dBContext;
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Rating(string value, string filmId)
+        public async Task<IActionResult> AddFilm(string filmId, string status)
         {
             var userId = RouteData.Values["id"].ToString();
-            var user = await dBContext.Users.Include(e => e.UserStars).ThenInclude(e => e.UserFilm).Where(e => e.UserName == userId).FirstOrDefaultAsync();
+
+            var user = await dBContext.Users.Include(e => e.UserStars)
+                .ThenInclude(e => e.UserFilm)
+                .ThenInclude(e => e.StatusView)
+                .Where(e => e.UserName == userId)
+                .FirstOrDefaultAsync();
 
             if (user != null)
             {
@@ -32,13 +38,17 @@ namespace KursachBD.Controllers.APIControllers
                 {
                     if (user.UserStars.Where(e => e.UserFilm.FilmId == Convert.ToInt32(filmId)).Count() > 0)
                     {
-                        user.UserStars.Where(e => e.UserFilm.FilmId == Convert.ToInt32(filmId)).FirstOrDefault().Star = Convert.ToInt32(value);
+                        user.UserStars.Where(e => e.UserFilm.FilmId == Convert.ToInt32(filmId)).FirstOrDefault()
+                            .UserFilm.StatusViewId = status.GetIdStatus();
+
                         dBContext.Users.Update(user);
                         await dBContext.SaveChangesAsync();
                     }
                     else
                     {
-                        user.UserStars.Add(new UserStar() { Star = Convert.ToInt32(value), UserFilm = new UserFilm() { FilmId = Convert.ToInt32(filmId), StatusViewId = 3 } });
+                        user.UserStars.Add(new UserStar() { Star = null, UserFilm = new UserFilm()
+                        { FilmId = Convert.ToInt32(filmId), StatusViewId = status.GetIdStatus()} });
+
                         dBContext.Users.Update(user);
                         await dBContext.SaveChangesAsync();
                     }
@@ -53,7 +63,6 @@ namespace KursachBD.Controllers.APIControllers
             {
                 return NotFound();
             }
-
 
             return Ok();
         }

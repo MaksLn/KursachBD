@@ -1,61 +1,91 @@
-﻿@model KursachBD.Models.DataBaseModel.Film
-
+﻿@model KursachBD.Models.ViewModel.FilmViewModel
+@using System.Linq;
 @{
     ViewData["Title"] = "Film";
 }
 
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/css/CommentBox.css" />
 <link rel="stylesheet" href="~/css/Star.css" />
 
 <div class="container">
     <div class=" row">
-        <div class="col-sm-5">
-            <img class="img-fluid" src="@Model.Photo" />
+        <div class="col-sm-4">
+            <img class="img-fluid" src="@Model.Film.Photo" />
         </div>
-        <div style="padding-left:0px" class="col-sm-7">
-            <h4>@Model.Name</h4>
+        <div style="padding-left:0px" class="col-sm-8">
+            <h4>@Model.Film.Name</h4>
             <hr />
             <dl class="row">
-                <dt class="col-sm-3">
+                <dt class="col-sm-4">
                     Год:
                 </dt>
-                <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.Year.Year)
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Film.Year.Year)
                 </dd>
-                <dt class="col-sm-3">
+                <dt class="col-sm-4">
+                    Жанр:
+                </dt>
+                <dd class="col-sm-8">
+                    @foreach (var obj in Model.Film.FilmsToGenres)
+                    {
+                        @obj.Genre.GenersName;
+                    }
+                </dd>
+                <dt class="col-sm-4">
                     Бюджет:
                 </dt>
-                <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.Budget)
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Film.Budget)
                 </dd>
-                <dt class="col-sm-3">
+                @foreach (var item in Model.Film.ParticipantsBuffers.GroupBy(e => e.StatusParticipants))
+                {
+                    <dt class="col-sm-4">
+                        @item.Key.Status
+                    </dt>
+                    <dd class="col-sm-8">
+                        @foreach (var person in Model.Film.ParticipantsBuffers.Where(e => e.StatusParticipantsId == item.Key.Id))
+                        {
+                            <a href="@person.Participant.Href">
+                                @person.Participant.Name
+                                @if (Model.Film.ParticipantsBuffers.Where(e => e.StatusParticipantsId == item.Key.Id).Count() > 1
+                       && Model.Film.ParticipantsBuffers.Where(e => e.StatusParticipantsId == item.Key.Id).Last() != person)
+                                {
+                                    <r>,&nbsp;</r>
+                                }
+                            </a>
+                        }
+                    </dd>
+                }
+                <dt class="col-sm-4">
                     Время:
                 </dt>
-                <dd class="col-sm-9">
-                    @{ var i = @Model.Time.Minute + @Model.Time.Hour * 60;}
+                <dd class="col-sm-8">
+                    @{ var i = @Model.Film.Time.Minute + @Model.Film.Time.Hour * 60;}
                     @i минуты
                 </dd>
-                <dt class="col-sm-3">
+                <dt class="col-sm-4">
                     MPAA:
                 </dt>
-                <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.MPAA.Mpaa)
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Film.MPAA.Mpaa)
                 </dd>
-                <dt class="col-sm-3">
+                <dt class="col-sm-4">
                     Рейтинг:
                 </dt>
-                <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.Reting.AllStar)
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Film.Reting.AllStar)
                 </dd>
-                <dt class="col-sm-3">
+                <dt class="col-md-4">
                     Рейтинг пользователей:
                 </dt>
-                <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.Reting.UserStar)
+                <dd class="col-md-8">
+                    @Html.DisplayFor(model => model.Film.Reting.UserStar)
                 </dd>
-                <dt class="col-sm-3">
+                <dt class="col-sm-4">
                     Поставить оценку:
                 </dt>
-                <dd style="padding-left:18px" class="col-sm-9">
+                <dd style="padding-left:18px" class="col-sm-8">
                     <div class="rating">
                         <input @ViewData["checked10"] class="ratingInput" onclick="sendRating(this.value)" type="radio" id="star10" name="rating" value="10" /><label for="star10" title="Rocks!">5 stars</label>
                         <input @ViewData["checked9"] class="ratingInput" onclick="sendRating(this.value)" type="radio" id="star9" name="rating" value="9" /><label for="star9" title="Rocks!">4 stars</label>
@@ -70,19 +100,112 @@
                     </div>
                 </dd>
             </dl>
-
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-btn ">
+                            <button onclick="sendFilm()" class="btn btn-secondary btn-sm" type="button" tabindex="-1">Добавить</button>
+                        </span>
+                        <select id="mySelect" class="form-control text-secondary custom-select-sm">
+                            <option id="1" selected class="active">⧗ Просмотреть позже</option>
+                            <option id="2">★ Понравившийся</option>
+                            <option id="3">✓ Смотрел</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col=md-2">
+                  <img id="ImgS" src="~/image/iconfinder_Tick_Mark_Dark_1398912.svg" style="visibility:hidden;width:30px; height:35px" />
+                </div>
+            </div>
         </div>
+    </div>
+</div>
+<div class="container">
+    <hr />
+    <br />
+    <div class="container">
+        <h3>Описание</h3>
+        <p>@Model.Film.Discription</p>
+    </div>
+</div>
+<br />
+<div class="container">
+    <div class="container">
+        <h3>Комментарии</h3>
+        <br />
+        @if (User.Identity.IsAuthenticated && Convert.ToBoolean(ViewData["IsConfimEmail"]) == true)
+        {
+            <div class="row">
+                <div class="col-md-8">
+                    <form asp-action="AddComents" asp-controller="Coments" method="post">
+                        <input name="FilmId" type="hidden" value="@Model.Film.Id" />
+                        <input name="Name" value="@User.Identity.Name" type="hidden" />
+                        <div class="input-group mb-sm-">
+                            <textarea name="Text" class="form-control" placeholder="Ваш коментарий" style="height:130px" aria-describedby="basic-addon2"></textarea>
+                        </div>
+                        <button style="margin-top:15px" class="btn btn-success">Оставить комментарий</button>
+                    </form>
+                </div>
+            </div>
+        }
+        else if (User.Identity.IsAuthenticated && Convert.ToBoolean(ViewData["IsConfimEmail"]) == false)
+        {
+            <p class="text-danger">Что бы оставлять комментарии подтвердите свой Email.</p>
+        }
+        else
+        {
+            <p class="text-danger">Только зарегистрированные пользователи могут оставлять комментраии.</p>
+        }
+
+        @foreach (var coment in Model.Coments)
+        {
+            <div class="comment-box">
+                <div class="heading">
+                    <img src="https://localhost:44360/Avatar/Photo/@coment.User.UserName" alt="emy">
+
+                </div>
+
+                <div class="container-fluid">
+                    <div class="h-in">
+                        <div class="cont">
+                            <strong>@coment.User.UserName</strong>
+                            <small style="float:right!important;" class="pull-right">@coment.DateTime.ToShortDateString() @coment.DateTime.ToShortTimeString()</small>
+                            <br>
+                        </div>
+                        <p>@coment.Text</p>
+                    </div>
+                </div>
+            </div>
+        }
+
     </div>
 </div>
 
 <script>
     function sendRating(starId)
     {
-        fetch("https://localhost:44360/APIRating/Rating/" + "@User.Identity.Name" + "?value=" + starId+"&filmId="+"@Model.Id", {
+        fetch("https://localhost:44360/APIRating/Rating/" + "@User.Identity.Name" + "?value=" + starId+"&filmId="+"@Model.Film.Id", {
         credentials: 'same-origin',
         method: 'POST',
         'Content-Type': 'application/json'
         }).then(response => response.status)
             .then(result => console.log(result.toString()))
     }
+
+     function sendFilm()
+     {
+         var selected = $("#mySelect :selected").text();
+         var img = document.getElementById("ImgS"); 
+
+         fetch("https://localhost:44360/APIUser/AddFilm/" + "@User.Identity.Name" + "?filmId=" + "@Model.Film.Id" + "&status=" + selected, {
+        credentials: 'same-origin',
+        method: 'POST',
+        'Content-Type': 'application/json'
+        }).then(response => response.status)
+            .then(result => img.style.visibility="visible")
+    }
 </script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

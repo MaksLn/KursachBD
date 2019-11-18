@@ -13,6 +13,7 @@ namespace KursachBD.Models
     {
         public DbSet<Film> Films { get; set; }
         public new DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Coment> Coment { get; set; }
         public DBContext (DbContextOptions<DBContext> options):base(options)
         {
 

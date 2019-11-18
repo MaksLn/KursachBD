@@ -26,6 +26,7 @@ namespace KursachBD.Models.DataBaseModel
         public int? MPAAId { get; set; }
         public MPAA MPAA { get; set; }
         public string Photo { get; set; }
+        public string Discription { get; set; }
         public int RetingId { get; set; }
         public Reting Reting { get; set; }
         public List<FilmsToGenres> FilmsToGenres { get; set; }
