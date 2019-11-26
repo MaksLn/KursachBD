@@ -29,20 +29,27 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Популярные</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Лучшие оценки</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Жанр</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Год</a>
                         </li>
                     </ul>
                     <div>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <p style="margin-bottom:0px"><img width="30px" height="30px" src="/Avatar/Photo/@User.Identity.Name"/> @User.Identity.Name <a class="btn-link" asp-action="LogOff" style="padding-left:20px" asp-controller="Logining">Выйти</a></p>
-                            
+                            <p style="margin-bottom:0px"><img width="30px" height="30px" src="/Avatar/Photo/@User.Identity.Name" /> @User.Identity.Name <a class="btn-link" asp-action="LogOff" style="padding-left:20px" asp-controller="Logining">Выйти</a></p>
+
                         }
                         else
                         {
+                            <a style="margin-right:20px" class="btn-link" asp-action="Login" asp-controller="Logining">Регистрация</a>
                             <a class="btn-link" asp-action="Login" asp-controller="Logining">Войти</a>
                         }
                     </div>

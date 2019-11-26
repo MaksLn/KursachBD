@@ -1,0 +1,186 @@
+﻿@model KursachBD.Models.ViewModel.ProfileViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+<link rel="stylesheet" href="~/css/Star.css" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script>
+    function sendRating(starId, Id)
+    {
+        fetch("https://localhost:44360/APIRating/Rating/" + "@User.Identity.Name" + "?value=" + starId+"&filmId="+ Id, {
+        credentials: 'same-origin',
+        method: 'POST',
+        'Content-Type': 'application/json'
+        }).then(response => response.status)
+            .then(result => console.log(result.toString()))
+    }
+
+      function sendDiscription(temp,Id)
+      {
+          var text = document.getElementById("Text+" + temp);
+          fetch("https://localhost:44360/APIUser/UpdateDiscription/" + "@User.Identity.Name" + "?text=" + text.value + "&filmId=" + Id, {
+        credentials: 'same-origin',
+        method: 'POST',
+        'Content-Type': 'application/json'
+        }).then(response => response.status)
+            .then(result => console.log(result.toString()))
+    }
+
+     function sendFilm(Id)
+     {
+         var selected = $("#mySelect :selected").text();
+         var img = document.getElementById("ImgS");
+
+         fetch("https://localhost:44360/APIUser/AddFilm/" + "@User.Identity.Name" + "?filmId=" + Id + "&status=" + selected, {
+        credentials: 'same-origin',
+        method: 'POST',
+        'Content-Type': 'application/json'
+        }).then(response => response.status)
+            .then(result => img.style.visibility="visible")
+    }
+
+    function LikeFilm(id)
+    {
+        if (id === 1)
+        {
+            var op = document.getElementById("1");
+            op.selected = "selected";
+        }
+         if (id === 2)
+        {
+             var op = document.getElementById("2");
+             op.selected = "selected";
+        }
+         if (id === 3)
+        {
+            var op = document.getElementById("3");
+            op.selected = "selected";
+        }
+
+    }
+
+    function LoadPage()
+    {
+        var e = document.getElementById("List");
+        var strUser = e.options[e.selectedIndex].text;
+
+        window.location.href = '/Profile/Index?param=' + strUser;
+    }
+
+    
+</script>
+
+<div style="margin-bottom:15px" class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="input-group">
+                <select id="List" class="form-control text-secondary custom-select-sm">
+                    <option id="10">▤ Все</option>
+                    <option id="11">⧗ Хочу смотреть</option>
+                    <option id="12">★ Понравившиeся</option>
+                    <option id="13">✓ Просмотренные</option>
+                </select>
+                <script>
+                    function Test()
+                    {
+                        document.getElementById(@ViewData["id"]).setAttribute("selected", "true");
+                    }
+
+                    document.addEventListener("load", Test());
+
+                </script>
+                <span class="input-group-btn ">
+                    <button onclick="LoadPage()" class="btn btn-secondary btn-sm" type="button" tabindex="-1">Показать</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Название</th>
+                        <th scope="col">Заметка</th>
+                        <th scope="col">Оценка</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.UserStar)
+                    {
+                        <tr>
+                            <td class="" style="text-align: center;">
+                                <a style="text-decoration: none;color: #000 !important;" href="#">
+                                    <img class="img-fluid" src="@item.UserFilm.Film.Photo" />
+                                    @item.UserFilm.Film.Name
+                                </a>
+
+                                <div class="input-group">
+                                    <select style="width:15em" onchange="sendFilm(@item.UserFilm.Film.Id)" id="mySelect" class="form-control text-secondary custom-select-sm">
+                                        <option id="1">⧗ Просмотреть позже</option>
+                                        <option id="2">★ Понравившийся</option>
+                                        <option id="3">✓ Смотрел</option>
+                                    </select>
+                                </div>
+                            </td>
+                            <script>
+                                    document.addEventListener("load", LikeFilm(@item.UserFilm.StatusViewId));
+                            </script>
+                            <td>
+                                <div class="container-fluid">
+                                    <form>
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <span>
+                                                    <textarea id="Text+@item.UserFilmId" style="width:35em" class="form-control" rows="8">@item.UserFilm.Discription</textarea>
+                                                </span>
+                                            </div>
+                                            <button onclick="sendDiscription(@item.UserFilmId, @item.UserFilm.FilmId)" type="button" class="btn btn-outline-success">Редактировать</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </td>
+                            <td>
+                                <p>
+                                    <b>Оценка:</b>
+                                    <br />
+                                    @item.UserFilm.Film.Reting.AllStar
+                                </p>
+                                <p>
+                                    <b>Оценка пользователей:</b>
+                                    <br />
+                                    @item.UserFilm.Film.Reting.UserStar
+                                </p>
+                                <p>
+                                    <b>Ваша оценка:</b>
+                                </p>
+                                @{ViewData["checked" + item.UserFilm.UserStars.Where(e => e.UserFilm.FilmId == item.UserFilm.Film.Id).FirstOrDefault().Star] = "checked";}
+                                <div style="width:14em;" class="rating">
+                                    <input @ViewData["checked10"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star10" name="rating" value="10" /><label for="star10" title="Rocks!">5 stars</label>
+                                    <input @ViewData["checked9"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star9" name="rating" value="9" /><label for="star9" title="Rocks!">4 stars</label>
+                                    <input @ViewData["checked8"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star8" name="rating" value="8" /><label for="star8" title="Pretty good">3 stars</label>
+                                    <input @ViewData["checked7"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star7" name="rating" value="7" /><label for="star7" title="Pretty good">2 stars</label>
+                                    <input @ViewData["checked6"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star6" name="rating" value="6" /><label for="star6" title="Normal">1 star</label>
+                                    <input @ViewData["checked5"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Normal">5 stars</label>
+                                    <input @ViewData["checked4"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Kinda bad">4 stars</label>
+                                    <input @ViewData["checked3"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Kinda bad">3 stars</label>
+                                    <input @ViewData["checked2"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Bad">2 stars</label>
+                                    <input @ViewData["checked1"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Bad">1 star</label>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+

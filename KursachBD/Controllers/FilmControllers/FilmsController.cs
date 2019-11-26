@@ -40,7 +40,7 @@ namespace KursachBD.Controllers.FilmControllers
                             .Include(e => e.UserStars)
                             .ThenInclude(e => e.UserFilm)
                             .Where(e => e.UserName == HttpContext.User.Identity.Name)
-                            .FirstOrDefaultAsync().Result.UserStars
+                            .FirstOrDefault().UserStars
                             .Where(e => e.UserFilm.FilmId == Convert.ToInt32(RouteData.Values["Id"]))
                             .FirstOrDefault();
 
@@ -51,9 +51,9 @@ namespace KursachBD.Controllers.FilmControllers
                     }
                     catch(Exception x)
                     {
-                        var user = dBContext.Users
+                        var user = await dBContext.Users
                             .Where(e => e.UserName == HttpContext.User.Identity.Name)
-                            .FirstOrDefaultAsync().Result;
+                            .FirstOrDefaultAsync();
 
                         ViewData["IsConfimEmail"] = user.EmailConfirmed;
                     }

@@ -46,8 +46,12 @@ namespace KursachBD.Controllers.APIControllers
                     }
                     else
                     {
-                        user.UserStars.Add(new UserStar() { Star = null, UserFilm = new UserFilm()
-                        { FilmId = Convert.ToInt32(filmId), StatusViewId = status.GetIdStatus()} });
+                        user.UserStars.Add(new UserStar()
+                        {
+                            Star = null,
+                            UserFilm = new UserFilm()
+                            { FilmId = Convert.ToInt32(filmId), StatusViewId = status.GetIdStatus() }
+                        });
 
                         dBContext.Users.Update(user);
                         await dBContext.SaveChangesAsync();
@@ -66,5 +70,32 @@ namespace KursachBD.Controllers.APIControllers
 
             return Ok();
         }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> UpdateDiscription(string filmId, string text)
+        {
+            var userId = RouteData.Values["id"].ToString();
+
+            var user = await dBContext.Users.Include(e => e.UserStars)
+                .ThenInclude(e => e.UserFilm)
+                .Where(e => e.UserName == userId)
+                .FirstOrDefaultAsync();
+
+            try
+            {
+                user.UserStars.Where(e => e.UserFilm.FilmId == Convert.ToInt32(filmId)).FirstOrDefault().UserFilm.Discription = text;
+                dBContext.Users.Update(user);
+                await dBContext.SaveChangesAsync();
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
+
     }
 }
