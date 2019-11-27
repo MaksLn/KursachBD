@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Index";
+    int count = 0;
+    var list = new List<Dictionary<string, string>>();
 }
 <link rel="stylesheet" href="~/css/Star.css" />
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -30,32 +32,31 @@
 
      function sendFilm(Id)
      {
-         var selected = $("#mySelect :selected").text();
-         var img = document.getElementById("ImgS");
+         var selected = document.getElementById("mySelect+" + Id).value;
 
          fetch("https://localhost:44360/APIUser/AddFilm/" + "@User.Identity.Name" + "?filmId=" + Id + "&status=" + selected, {
         credentials: 'same-origin',
         method: 'POST',
         'Content-Type': 'application/json'
         }).then(response => response.status)
-            .then(result => img.style.visibility="visible")
+            .then(result => console.log(result.toString()))
     }
 
-    function LikeFilm(id)
+    function LikeFilm(id, filmId)
     {
         if (id === 1)
         {
-            var op = document.getElementById("1");
+            var op = document.getElementById("1+" + filmId);
             op.selected = "selected";
         }
          if (id === 2)
         {
-             var op = document.getElementById("2");
+             var op = document.getElementById("2+" + filmId);
              op.selected = "selected";
         }
          if (id === 3)
         {
-            var op = document.getElementById("3");
+            var op = document.getElementById("3+" + filmId);
             op.selected = "selected";
         }
 
@@ -69,7 +70,7 @@
         window.location.href = '/Profile/Index?param=' + strUser;
     }
 
-    
+
 </script>
 
 <div style="margin-bottom:15px" class="container">
@@ -115,21 +116,21 @@
                     {
                         <tr>
                             <td class="" style="text-align: center;">
-                                <a style="text-decoration: none;color: #000 !important;" href="#">
+                                <a style="text-decoration: none;color: #000 !important;" href="/Films/Film/@item.UserFilm.Film.Id">
                                     <img class="img-fluid" src="@item.UserFilm.Film.Photo" />
                                     @item.UserFilm.Film.Name
                                 </a>
 
                                 <div class="input-group">
-                                    <select style="width:15em" onchange="sendFilm(@item.UserFilm.Film.Id)" id="mySelect" class="form-control text-secondary custom-select-sm">
-                                        <option id="1">⧗ Просмотреть позже</option>
-                                        <option id="2">★ Понравившийся</option>
-                                        <option id="3">✓ Смотрел</option>
+                                    <select style="width:15em" onchange="sendFilm(@item.UserFilm.Film.Id)" id="mySelect+@item.UserFilm.Film.Id" class="form-control text-secondary custom-select-sm">
+                                        <option id="1+@item.UserFilm.Film.Id">⧗ Просмотреть позже</option>
+                                        <option id="2+@item.UserFilm.Film.Id">★ Понравившийся</option>
+                                        <option id="3+@item.UserFilm.Film.Id">✓ Смотрел</option>
                                     </select>
                                 </div>
                             </td>
                             <script>
-                                    document.addEventListener("load", LikeFilm(@item.UserFilm.StatusViewId));
+                                    document.addEventListener("load", LikeFilm(@item.UserFilm.StatusViewId, @item.UserFilm.FilmId));
                             </script>
                             <td>
                                 <div class="container-fluid">
@@ -159,19 +160,24 @@
                                 <p>
                                     <b>Ваша оценка:</b>
                                 </p>
-                                @{ViewData["checked" + item.UserFilm.UserStars.Where(e => e.UserFilm.FilmId == item.UserFilm.Film.Id).FirstOrDefault().Star] = "checked";}
+                                @{
+                                    list.Add(new Dictionary<string, string>());
+                                    list[count].Add("checked" + item.UserFilm.UserStars
+                                        .Where(e => e.UserFilm.FilmId == item.UserFilm.Film.Id).FirstOrDefault().Star.ToString() + item.UserFilm.Film.Id.ToString(), "checked");
+                                }
                                 <div style="width:14em;" class="rating">
-                                    <input @ViewData["checked10"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star10" name="rating" value="10" /><label for="star10" title="Rocks!">5 stars</label>
-                                    <input @ViewData["checked9"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star9" name="rating" value="9" /><label for="star9" title="Rocks!">4 stars</label>
-                                    <input @ViewData["checked8"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star8" name="rating" value="8" /><label for="star8" title="Pretty good">3 stars</label>
-                                    <input @ViewData["checked7"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star7" name="rating" value="7" /><label for="star7" title="Pretty good">2 stars</label>
-                                    <input @ViewData["checked6"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star6" name="rating" value="6" /><label for="star6" title="Normal">1 star</label>
-                                    <input @ViewData["checked5"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Normal">5 stars</label>
-                                    <input @ViewData["checked4"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Kinda bad">4 stars</label>
-                                    <input @ViewData["checked3"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Kinda bad">3 stars</label>
-                                    <input @ViewData["checked2"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Bad">2 stars</label>
-                                    <input @ViewData["checked1"] class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Bad">1 star</label>
+                                    <input @{var a = list[count].ContainsKey("checked10" + item.UserFilm.Film.Id.ToString()) ? list[count]["checked10" + item.UserFilm.Film.Id.ToString()] : "";} @a class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star10+@item.UserFilm.Film.Id)" name="rating+@item.UserFilm.Film.Id.ToString()" value="10" /><label for="star10+@item.UserFilm.Film.Id)" title="Rocks!">5 stars</label>
+                                    <input @{var a1 = list[count].ContainsKey("checked9" + item.UserFilm.Film.Id.ToString())?list[count]["checked9"+item.UserFilm.Film.Id.ToString()]:"";} @a1 class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star9+@item.UserFilm.Film.Id)" name="rating+@item.UserFilm.Film.Id.ToString()" value="9" /><label for="star9+@item.UserFilm.Film.Id)" title="Rocks!">4 stars</label>
+                                    <input @{var a2 = list[count].ContainsKey("checked8" + item.UserFilm.Film.Id.ToString())?list[count]["checked8"+item.UserFilm.Film.Id.ToString()]:"";} @a2 class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star8+@item.UserFilm.Film.Id)" name="rating+@item.UserFilm.Film.Id.ToString()" value="8" /><label for="star8+@item.UserFilm.Film.Id)" title="Pretty good">3 stars</label>
+                                    <input @{var a3 = list[count].ContainsKey("checked7" + item.UserFilm.Film.Id.ToString())?list[count]["checked7"+item.UserFilm.Film.Id.ToString()]:"";} @a3 class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star7+@item.UserFilm.Film.Id)" name="rating+@item.UserFilm.Film.Id.ToString()" value="7" /><label for="star7+@item.UserFilm.Film.Id)" title="Pretty good">2 stars</label>
+                                    <input @{var a4 = list[count].ContainsKey("checked6" + item.UserFilm.Film.Id.ToString())?list[count]["checked6"+item.UserFilm.Film.Id.ToString()]:"";} @a4 class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star6+@item.UserFilm.Film.Id)" name="rating+@item.UserFilm.Film.Id.ToString()" value="6" /><label for="star6+@item.UserFilm.Film.Id)" title="Normal">1 star</label>
+                                    <input @{var a5 = list[count].ContainsKey("checked5" + item.UserFilm.Film.Id.ToString())?list[count]["checked5"+item.UserFilm.Film.Id.ToString()]:"";} @a5 class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star5+@item.UserFilm.Film.Id)" name="rating+@item.UserFilm.Film.Id.ToString()" value="5" /><label for="star5+@item.UserFilm.Film.Id)" title="Normal">5 stars</label>
+                                    <input @{var a6 = list[count].ContainsKey("checked4" + item.UserFilm.Film.Id.ToString())?list[count]["checked4"+item.UserFilm.Film.Id.ToString()]:"";} @a6 class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star4+@item.UserFilm.Film.Id)" name="rating+@item.UserFilm.Film.Id.ToString()" value="4" /><label for="star4+@item.UserFilm.Film.Id)" title="Kinda bad">4 stars</label>
+                                    <input @{var a7 = list[count].ContainsKey("checked3" + item.UserFilm.Film.Id.ToString())?list[count]["checked3"+item.UserFilm.Film.Id.ToString()]:"";} @a7 class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star3+@item.UserFilm.Film.Id)" name="rating+@item.UserFilm.Film.Id.ToString()" value="3" /><label for="star3+@item.UserFilm.Film.Id)" title="Kinda bad">3 stars</label>
+                                    <input @{var a8 = list[count].ContainsKey("checked2" + item.UserFilm.Film.Id.ToString())?list[count]["checked2"+item.UserFilm.Film.Id.ToString()]:"";} @a8 class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star2+@item.UserFilm.Film.Id)" name="rating+@item.UserFilm.Film.Id.ToString()" value="2" /><label for="star2+@item.UserFilm.Film.Id)" title="Bad">2 stars</label>
+                                    <input @{var a9 = list[count].ContainsKey("checked1" + item.UserFilm.Film.Id.ToString())?list[count]["checked1"+item.UserFilm.Film.Id.ToString()]:"";} @a9 class="ratingInput" onclick="sendRating(this.value,@item.UserFilm.Film.Id)" type="radio" id="star1+@item.UserFilm.Film.Id)" name="rating+@item.UserFilm.Film.Id.ToString()" value="1" /><label for="star1+@item.UserFilm.Film.Id)" title="Bad">1 star</label>
                                 </div>
+                                @{count++;}
                             </td>
                         </tr>
                     }

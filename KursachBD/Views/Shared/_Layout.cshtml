@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@inject KursachBD.Service.GetAllGanre Ganres;
+@inject KursachBD.Service.GetAllYear Years;
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -13,13 +16,18 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <style type="text/css">
+        li:hover{
+            background-color:darkgray;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3">
             <div class="container" style="padding-right:0px; margin-right:0px">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">KursachBD</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -29,22 +37,48 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Популярные</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Popular">Популярные</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Лучшие оценки</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="BestReting">Лучшие оценки</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Жанры
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @foreach (var i in await Ganres.GetGenresAsync())
+                                {
+                                    <a class="dropdown-item" href="/Home/Ganre/@i.GenersName">@i.GenersName</a>
+                                }
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Год
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @foreach (var i in await Years.GetYearsAsync())
+                                {
+                                    <a class="dropdown-item" href="/Home/Year/@i.Year">@i.Year</a>
+                                }
+                            </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Жанр</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Год</a>
+                            <a class="nav-link text-defoult" asp-area="" asp-controller="Profile" asp-action="Index">Мои фильмы</a>
                         </li>
                     </ul>
                     <div>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <p style="margin-bottom:0px"><img width="30px" height="30px" src="/Avatar/Photo/@User.Identity.Name" /> @User.Identity.Name <a class="btn-link" asp-action="LogOff" style="padding-left:20px" asp-controller="Logining">Выйти</a></p>
+
+                            <p style="margin-bottom:0px">
+                                <a style="text-decoration: none;color: #000 !important;" href="/Profile/Index">
+                                    <img width="30px" height="30px" src="/Avatar/Photo/@User.Identity.Name" />
+                                    @User.Identity.Name
+                                </a>
+                                <a class="btn-link" asp-action="LogOff" style="padding-left:20px" asp-controller="Logining">Выйти</a>
+                            </p>
 
                         }
                         else
@@ -54,7 +88,7 @@
                         }
                     </div>
                 </div>
-                
+
             </div>
         </nav>
     </header>

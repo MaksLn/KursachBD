@@ -29,7 +29,8 @@
                 <dd class="col-sm-8">
                     @foreach (var obj in Model.Film.FilmsToGenres)
                     {
-                        @obj.Genre.GenersName;
+                        @obj.Genre.GenersName
+                        <g>,&nbsp;</g>
                     }
                 </dd>
                 <dt class="col-sm-4">
@@ -49,7 +50,7 @@
                             <a href="@person.Participant.Href">
                                 @person.Participant.Name
                                 @if (Model.Film.ParticipantsBuffers.Where(e => e.StatusParticipantsId == item.Key.Id).Count() > 1
-                       && Model.Film.ParticipantsBuffers.Where(e => e.StatusParticipantsId == item.Key.Id).Last() != person)
+                      && Model.Film.ParticipantsBuffers.Where(e => e.StatusParticipantsId == item.Key.Id).Last() != person)
                                 {
                                     <r>,&nbsp;</r>
                                 }
@@ -114,7 +115,7 @@
                     </div>
                 </div>
                 <div class="col=md-2">
-                  <img id="ImgS" src="~/image/iconfinder_Tick_Mark_Dark_1398912.svg" style="visibility:hidden;width:30px; height:35px" />
+                    <img id="ImgS" src="~/image/iconfinder_Tick_Mark_Dark_1398912.svg" style="visibility:hidden;width:30px; height:35px" />
                 </div>
             </div>
         </div>
@@ -195,7 +196,7 @@
      function sendFilm()
      {
          var selected = $("#mySelect :selected").text();
-         var img = document.getElementById("ImgS"); 
+         var img = document.getElementById("ImgS");
 
          fetch("https://localhost:44360/APIUser/AddFilm/" + "@User.Identity.Name" + "?filmId=" + "@Model.Film.Id" + "&status=" + selected, {
         credentials: 'same-origin',

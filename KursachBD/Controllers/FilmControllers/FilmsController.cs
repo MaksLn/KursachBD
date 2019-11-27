@@ -73,7 +73,7 @@ namespace KursachBD.Controllers.FilmControllers
                     .ThenInclude(e => e.Participant)
                     .Where(e => e.Id == Convert.ToInt32(RouteData.Values["Id"])).FirstOrDefaultAsync();
 
-                var coments = await dBContext.Coment.Include(e => e.User).ToListAsync();
+                var coments = await dBContext.Coment.Include(e => e.User).Where(e=>e.FilmId==film.Id).ToListAsync();
 
                 model.Film = film;
                 model.Coments = coments;

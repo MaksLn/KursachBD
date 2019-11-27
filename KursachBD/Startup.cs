@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using KursachBD.Models;
 using KursachBD.Models.DataBaseModel;
+using KursachBD.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -41,6 +42,8 @@ namespace KursachBD
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddTransient<GetAllGanre>();
+            services.AddTransient<GetAllYear>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

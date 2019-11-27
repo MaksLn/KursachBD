@@ -38,7 +38,7 @@ namespace KursachBD.Controllers.APIControllers
                     }
                     else
                     {
-                        user.UserStars.Add(new UserStar() { Star = Convert.ToInt32(value), UserFilm = new UserFilm() { FilmId = Convert.ToInt32(filmId), StatusViewId = 3 } });
+                        user.UserStars.Add(new UserStar() { Star = Convert.ToInt32(value), UserFilm = new UserFilm() { FilmId = Convert.ToInt32(filmId), StatusViewId = 3 } }); //исправить статус просмотра
                         dBContext.Users.Update(user);
                         await dBContext.SaveChangesAsync();
                     }
