@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{98DF41FC-60C3-4434-94B7-E45DE62198ED}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>AdminPanel</RootNamespace>
+    <AssemblyName>AdminPanel</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BufP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BufP.Designer.cs">
+      <DependentUpon>BufP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Country.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Country.Designer.cs">
+      <DependentUpon>Country.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CountryToFilms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CountryToFilms.Designer.cs">
+      <DependentUpon>CountryToFilms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FiIms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FiIms.Designer.cs">
+      <DependentUpon>FiIms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FilmBDDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FilmBDDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FilmBDDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FilmBDDataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FilmBDDataSet10.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FilmBDDataSet10.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FilmBDDataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FilmBDDataSet2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FilmBDDataSet3.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FilmBDDataSet3.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FilmBDDataSet4.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FilmBDDataSet4.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FilmBDDataSet5.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FilmBDDataSet5.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FilmBDDataSet6.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FilmBDDataSet6.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FilmBDDataSet7.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FilmBDDataSet7.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FilmBDDataSet8.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FilmBDDataSet8.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FilmBDDataSet9.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FilmBDDataSet9.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ganre.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ganre.Designer.cs">
+      <DependentUpon>Ganre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GanreToFilms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GanreToFilms.Designer.cs">
+      <DependentUpon>GanreToFilms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MPAA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MPAA.Designer.cs">
+      <DependentUpon>MPAA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Part.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Part.Designer.cs">
+      <DependentUpon>Part.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reiting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reiting.Designer.cs">
+      <DependentUpon>Reiting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StatusP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatusP.Designer.cs">
+      <DependentUpon>StatusP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Year.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Year.Designer.cs">
+      <DependentUpon>Year.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="BufP.resx">
+      <DependentUpon>BufP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Country.resx">
+      <DependentUpon>Country.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountryToFilms.resx">
+      <DependentUpon>CountryToFilms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FiIms.resx">
+      <DependentUpon>FiIms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ganre.resx">
+      <DependentUpon>Ganre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GanreToFilms.resx">
+      <DependentUpon>GanreToFilms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MPAA.resx">
+      <DependentUpon>MPAA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Part.resx">
+      <DependentUpon>Part.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Reiting.resx">
+      <DependentUpon>Reiting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatusP.resx">
+      <DependentUpon>StatusP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Year.resx">
+      <DependentUpon>Year.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="FilmBDDataSet.xsc">
+      <DependentUpon>FilmBDDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FilmBDDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FilmBDDataSet.xss">
+      <DependentUpon>FilmBDDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet1.xsc">
+      <DependentUpon>FilmBDDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FilmBDDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FilmBDDataSet1.xss">
+      <DependentUpon>FilmBDDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet10.xsc">
+      <DependentUpon>FilmBDDataSet10.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet10.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FilmBDDataSet10.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FilmBDDataSet10.xss">
+      <DependentUpon>FilmBDDataSet10.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet2.xsc">
+      <DependentUpon>FilmBDDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FilmBDDataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FilmBDDataSet2.xss">
+      <DependentUpon>FilmBDDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet3.xsc">
+      <DependentUpon>FilmBDDataSet3.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet3.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FilmBDDataSet3.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FilmBDDataSet3.xss">
+      <DependentUpon>FilmBDDataSet3.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet4.xsc">
+      <DependentUpon>FilmBDDataSet4.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet4.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FilmBDDataSet4.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FilmBDDataSet4.xss">
+      <DependentUpon>FilmBDDataSet4.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet5.xsc">
+      <DependentUpon>FilmBDDataSet5.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet5.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FilmBDDataSet5.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FilmBDDataSet5.xss">
+      <DependentUpon>FilmBDDataSet5.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet6.xsc">
+      <DependentUpon>FilmBDDataSet6.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet6.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FilmBDDataSet6.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FilmBDDataSet6.xss">
+      <DependentUpon>FilmBDDataSet6.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet7.xsc">
+      <DependentUpon>FilmBDDataSet7.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet7.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FilmBDDataSet7.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FilmBDDataSet7.xss">
+      <DependentUpon>FilmBDDataSet7.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet8.xsc">
+      <DependentUpon>FilmBDDataSet8.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet8.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FilmBDDataSet8.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FilmBDDataSet8.xss">
+      <DependentUpon>FilmBDDataSet8.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet9.xsc">
+      <DependentUpon>FilmBDDataSet9.xsd</DependentUpon>
+    </None>
+    <None Include="FilmBDDataSet9.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FilmBDDataSet9.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FilmBDDataSet9.xss">
+      <DependentUpon>FilmBDDataSet9.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

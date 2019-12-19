@@ -95,5 +95,11 @@ namespace KursachBD.Controllers.AccountControllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult Login(string ReturnUrl)
+        {
+            return RedirectToAction("Login", "Logining");
+        }
     }
 }

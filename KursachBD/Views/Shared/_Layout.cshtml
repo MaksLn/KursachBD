@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - KursachBD</title>
-
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     </environment>
@@ -20,14 +20,44 @@
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
     <style type="text/css">
-        li:hover{
-            background-color:darkgray;
+        li:hover {
+            background-color: darkgray;
         }
     </style>
+    <script>
+        function Sel()
+        {
+            var e = document.getElementById("SerchInput").value;
+            window.location.href = '/Films/Film?Serch=' + e;
+        }
+
+        function Search(e)
+        {
+            fetch("https://localhost:44360/APIUser/Serch/" + e.value, {
+                credentials: 'same-origin',
+                method: 'POST',
+                'Content-Type': 'application/json'
+            }).then(response => response.json())
+                .then(result =>
+                {
+                    var elem = document.getElementById("Src");
+                    elem.innerHTML = '';
+
+                    for (var i of result.names)
+                    {
+                        var t = document.createElement("option");
+
+                        t.value = i;
+                        elem.appendChild(t);
+                    }
+                    console.log(result.names, result.photos)
+                })
+        }
+    </script>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-xl navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3">
+        <nav  class="navbar navbar-expand-xl navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3">
             <div class="container" style="padding-right:0px; margin-right:0px">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">KursachBD</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -68,6 +98,16 @@
                             <a class="nav-link text-defoult" asp-area="" asp-controller="Profile" asp-action="Index">Мои фильмы</a>
                         </li>
                     </ul>
+                    <form method="get" asp-action="Film" asp-controller="Films" class="form-inline mr-md-auto">
+                        <div class="md-form my-0">
+                            <input  name="Serch" list="Src" id="SerchInput" class="form-control" oninput="Search(this)" type="search" placeholder="Search" aria-label="Search"
+                                   autocomplete="off" data-provide="typeahead">
+                            <datalist id="Src">
+                            </datalist>
+                            <i onclick="Sel()" class="fa fa-search" aria-hidden="true"></i>
+
+                        </div>
+                    </form>
                     <div>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -83,7 +123,7 @@
                         }
                         else
                         {
-                            <a style="margin-right:20px" class="btn-link" asp-action="Login" asp-controller="Logining">Регистрация</a>
+                            <a style="margin-right:20px" class="btn-link" asp-action="Registr" asp-controller="Registr">Регистрация</a>
                             <a class="btn-link" asp-action="Login" asp-controller="Logining">Войти</a>
                         }
                     </div>
@@ -104,7 +144,6 @@
             &copy; 2019 - KursachBD - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>

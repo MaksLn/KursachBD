@@ -21,12 +21,17 @@ namespace KursachBD.Controllers.FilmControllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Film()
+        public async Task<IActionResult> Film(string Serch=null)
         {
-            if (RouteData.Values["Id"] == null||dBContext.Films.Where(e=>e.Id==Convert.ToInt32(RouteData.Values["Id"])).Count()==0)
+            if (Serch != null)
+            {
+                RouteData.Values["Id"] = dBContext.Films.Where(e => e.Name == Serch).FirstOrDefault().Id; 
+            }
+            else if (RouteData.Values["Id"] == null||dBContext.Films.Where(e=>e.Id==Convert.ToInt32(RouteData.Values["Id"])).Count()==0)
             {
                 return RedirectToAction("Index", "Home");
             }
+            
 
             var model = new FilmViewModel();
 

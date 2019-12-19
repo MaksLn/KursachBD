@@ -7,6 +7,7 @@ using KursachBD.Models.DataBaseModel;
 using KursachBD.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
@@ -133,11 +134,29 @@ namespace KursachBD.Controllers.APIControllers
                 worksheet.DefaultColWidth = 25;
 
                 package.DoAdjustDrawings = false;
-
+                
                 result = package.GetAsByteArray();
             }
 
             return File(result, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Фильмы.xlsx");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Serch()
+        {
+            try
+            {
+                var text = RouteData.Values["Id"].ToString();
+                var result = dBContext.Films.Where(e => e.Name.Contains(text));
+
+                return Json(new { Names =result.Select(e => e.Name).Take(10)});
+            }
+            catch 
+            {
+
+            }
+
+            return Ok();
         }
 
     }

@@ -55,8 +55,6 @@ namespace KursachBD.Controllers.AccountControllers
                     }
             }
 
-
-
             ProfileViewModel profileViewModel = new ProfileViewModel() { UserStar = userInfo.UserStars };
             return View(profileViewModel);
         }
