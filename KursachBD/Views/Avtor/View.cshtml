@@ -1,0 +1,138 @@
+﻿@model KursachBD.Models.DataBaseModel.Participants
+@using System.Linq;
+@{
+    ViewData["Title"] = "Avtor";
+}
+
+
+<link rel="stylesheet" href="~/css/CommentBox.css" />
+<link rel="stylesheet" href="~/css/Star.css" />
+
+<div class="container">
+    <div class=" row">
+        <div class="col-sm-4">
+            <img class="img-fluid" src="@Model.Photo" />
+        </div>
+        <div style="padding-left:0px" class="col-sm-8">
+            <h4>@Model.Name</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-4">
+                    Год рождения:
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Year)
+                </dd>
+                <dt class="col-sm-4">
+                    Место рождения:
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Home)
+                </dd>
+                <dt class="col-sm-4">
+                    Года творчества:
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.WriteYear)
+                </dd>
+                <dt class="col-sm-4">
+                    Википедия:
+                </dt>
+                <dd class="col-sm-8">
+                    <a href="@Html.DisplayFor(model => model.Href)">@Model.Name</a>
+                </dd>
+            </dl>
+        </div>
+        <div class="container">
+            <hr />
+            <br />
+            <div class="container">
+                <h3>Биография</h3>
+                <p>@Model.Title</p>
+            </div>
+        </div>
+        <br />
+        <div class="container">
+            <div class="container">
+                <h3>Книги</h3>
+                <br />
+                <div class="row">
+                    @foreach (var i in Model.ParticipantsBuffers)
+                    {
+                        <div class="col-3" style="padding-bottom:20px">
+                            <a style="text-decoration: none;color: #000 !important;" href="/Films/Film/@i.Film.Id">
+
+                                <div class="card">
+                                    <div class="card-header">
+                                        <img class="card-img" src="@i.Film.Photo" />
+                                    </div>
+                                    <div class="card-body">
+                                        @i.Film.Name
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+            <br />
+            <div class="container">
+                <div class="container">
+                    <h3>Комментарии</h3>
+                    <br />
+                    @if (User.Identity.IsAuthenticated && Convert.ToBoolean(ViewData["IsConfimEmail"]) == true)
+                    {
+                        <div class="row">
+                            <div class="col-md-8">
+                                <form asp-action="AddComents" asp-controller="Coments" method="post">
+                                    <input name="FilmId" type="hidden" value="@Model.Id" />
+                                    <input name="Name" value="@User.Identity.Name" type="hidden" />
+                                    <div class="input-group mb-sm-">
+                                        <textarea name="Text" class="form-control" placeholder="Ваш коментарий" style="height:130px" aria-describedby="basic-addon2"></textarea>
+                                    </div>
+                                    <button style="margin-top:15px" class="btn btn-success">Оставить комментарий</button>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                    else if (User.Identity.IsAuthenticated && Convert.ToBoolean(ViewData["IsConfimEmail"]) == false)
+                    {
+                        <p class="text-danger">Что бы оставлять комментарии подтвердите свой Email.</p>
+                    }
+                    else
+                    {
+                        <p class="text-danger">Только зарегистрированные пользователи могут оставлять комментраии.</p>
+                    }
+
+                    @foreach (var coment in Model.AvtorComents)
+                    {
+                        <div class="comment-box">
+                            <div class="heading">
+                                <img src="https://localhost:44360/Avatar/Photo/@coment.User.UserName" alt="emy">
+
+                            </div>
+
+                            <div class="container-fluid">
+                                <div class="h-in">
+                                    <div class="cont">
+                                        <strong>@coment.User.UserName</strong>
+                                        <small style="float:right!important;" class="pull-right">@coment.DateTime.ToShortDateString() @coment.DateTime.ToShortTimeString()</small>
+                                        <br>
+                                    </div>
+                                    <p>@coment.Text</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+            <script>
+
+            </script>
+
+            @section Scripts {
+                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            }

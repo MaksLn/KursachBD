@@ -34,7 +34,7 @@
                     }
                 </dd>
                 <dt class="col-sm-4">
-                    Бюджет:
+                    Издательство:
                 </dt>
                 <dd class="col-sm-8">
                     @Html.DisplayFor(model => model.Film.Budget)
@@ -47,7 +47,7 @@
                     <dd class="col-sm-8">
                         @foreach (var person in Model.Film.ParticipantsBuffers.Where(e => e.StatusParticipantsId == item.Key.Id))
                         {
-                            <a href="@person.Participant.Href">
+                            <a href="/Avtor/Index?Id=@person.ParticipantsId">
                                 @person.Participant.Name
                                 @if (Model.Film.ParticipantsBuffers.Where(e => e.StatusParticipantsId == item.Key.Id).Count() > 1
                       && Model.Film.ParticipantsBuffers.Where(e => e.StatusParticipantsId == item.Key.Id).Last() != person)
@@ -58,24 +58,18 @@
                         }
                     </dd>
                 }
+               
                 <dt class="col-sm-4">
-                    Время:
-                </dt>
-                <dd class="col-sm-8">
-                    @{ var i = @Model.Film.Time.Minute + @Model.Film.Time.Hour * 60;}
-                    @i минуты
-                </dd>
-                <dt class="col-sm-4">
-                    MPAA:
+                    Переплет:
                 </dt>
                 <dd class="col-sm-8">
                     @Html.DisplayFor(model => model.Film.MPAA.Mpaa)
                 </dd>
                 <dt class="col-sm-4">
-                    Рейтинг:
+                    Старниц:
                 </dt>
                 <dd class="col-sm-8">
-                    @Html.DisplayFor(model => model.Film.Reting.AllStar)
+                    @Html.DisplayFor(model => model.Film.Reting.Discription)
                 </dd>
                 <dt class="col-md-4">
                     Рейтинг пользователей:
@@ -105,12 +99,12 @@
                 <div class="col-md-5">
                     <div class="input-group">
                         <span class="input-group-btn ">
-                            <button onclick="sendFilm()" class="btn btn-secondary btn-sm" type="button" tabindex="-1">Добавить</button>
+                            <button onclick="sendFilm()" class="btn btn-secondary btn-sm" style="background-color:orange;border:hidden" type="button" tabindex="-1">Добавить</button>
                         </span>
                         <select id="mySelect" class="form-control text-secondary custom-select-sm">
-                            <option id="1" selected class="active">⧗ Просмотреть позже</option>
-                            <option id="2">★ Понравившийся</option>
-                            <option id="3">✓ Смотрел</option>
+                            <option id="1" selected class="active">⧗ Хочу прочитать</option>
+                            <option id="2">★ Любимые</option>
+                            <option id="3">✓ Прочитал</option>
                         </select>
                     </div>
                 </div>
@@ -177,6 +171,8 @@
                     </div>
                 </div>
             </div>
+            <button class="btn-danger">удалить</button>
+            <button class="btn-secondary">заблокировать</button>
         }
 
     </div>

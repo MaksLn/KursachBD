@@ -11,15 +11,15 @@ namespace KursachBD.Service
         {
             switch (status)
             {
-                case "⧗ Просмотреть позже":
+                case "⧗ Хочу прочитать":
                     {
                         return 1;
                     }
-                case "★ Понравившийся":
+                case "★ Любимые":
                     {
                         return 2;
                     }
-                case "✓ Смотрел":
+                case "✓ Прочитал":
                     {
                         return 3;
                     }

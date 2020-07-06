@@ -30,21 +30,21 @@ namespace KursachBD.Controllers.AccountControllers
 
             switch (param)
             {
-                case "⧗ Хочу смотреть":
+                case "⧗ Хочу прочитать":
                     {
-                        userInfo.UserStars = userInfo.UserStars.Where(x => x.UserFilm.StatusView.Status == "⧗ Просмотреть позже").ToList();
+                        userInfo.UserStars = userInfo.UserStars.Where(x => x.UserFilm.StatusView.Status == "⧗ Хочу прочитать").ToList();
                         ViewData["id"] = 11;
                         break;
                     }
-                case "★ Понравившиeся":
+                case "★ Любимые":
                     {
-                        userInfo.UserStars = userInfo.UserStars.Where(x => x.UserFilm.StatusView.Status == "★ Понравившийся").ToList();
+                        userInfo.UserStars = userInfo.UserStars.Where(x => x.UserFilm.StatusView.Status == "★ Любимые").ToList();
                         ViewData["id"] = 12;
                         break;
                     }
-                case "✓ Просмотренные":
+                case "✓ Прочитанные":
                     {
-                        userInfo.UserStars = userInfo.UserStars.Where(x => x.UserFilm.StatusView.Status == "✓ Смотрел").ToList();
+                        userInfo.UserStars = userInfo.UserStars.Where(x => x.UserFilm.StatusView.Status == "✓ Прочитал").ToList();
                         ViewData["id"] = 13;
                         break;
                     }

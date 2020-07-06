@@ -79,9 +79,9 @@
             <div class="input-group">
                 <select id="List" class="form-control text-secondary custom-select-sm">
                     <option id="10">▤ Все</option>
-                    <option id="11">⧗ Хочу смотреть</option>
-                    <option id="12">★ Понравившиeся</option>
-                    <option id="13">✓ Просмотренные</option>
+                    <option id="11">⧗ Хочу прочитать</option>
+                    <option id="12">★ Любимые</option>
+                    <option id="13">✓ Прочитанные</option>
                 </select>
                 <script>
                     function Test()
@@ -93,7 +93,7 @@
 
                 </script>
                 <span class="input-group-btn ">
-                    <button onclick="LoadPage()" class="btn btn-secondary btn-sm" type="button" tabindex="-1">Показать</button>
+                    <button onclick="LoadPage()" class="btn btn-secondary btn-sm" style="background-color:orange;border:none" type="button" tabindex="-1">Показать</button>
                 </span>
             </div>
         </div>
@@ -129,9 +129,9 @@
 
                                 <div class="input-group">
                                     <select style="width:15em" onchange="sendFilm(@item.UserFilm.Film.Id)" id="mySelect+@item.UserFilm.Film.Id" class="form-control text-secondary custom-select-sm">
-                                        <option id="1+@item.UserFilm.Film.Id">⧗ Просмотреть позже</option>
-                                        <option id="2+@item.UserFilm.Film.Id">★ Понравившийся</option>
-                                        <option id="3+@item.UserFilm.Film.Id">✓ Смотрел</option>
+                                        <option id="1+@item.UserFilm.Film.Id">⧗ Хочу прочитать</option>
+                                        <option id="2+@item.UserFilm.Film.Id">★ Любимые</option>
+                                        <option id="3+@item.UserFilm.Film.Id">✓ Прочитал</option>
                                     </select>
                                 </div>
                             </td>

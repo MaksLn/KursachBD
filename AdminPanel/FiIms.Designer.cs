@@ -203,7 +203,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(116, 37);
             this.button4.TabIndex = 4;
-            this.button4.Text = "MPAA";
+            this.button4.Text = "Страниц";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -253,7 +253,7 @@
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(133, 38);
             this.button9.TabIndex = 9;
-            this.button9.Text = "Жар. фильмы";
+            this.button9.Text = "Жар. книг";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
@@ -263,7 +263,7 @@
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(136, 37);
             this.button10.TabIndex = 10;
-            this.button10.Text = "Страны флм.";
+            this.button10.Text = "Страны книги";
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
@@ -294,8 +294,8 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
-            this.Name = "Films";
-            this.Text = "FiIms";
+            this.Name = "Books";
+            this.Text = "Books";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Films_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
