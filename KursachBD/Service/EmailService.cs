@@ -24,7 +24,7 @@ namespace KursachBD.Service
             using (var client = new SmtpClient())
             {
                 await client.ConnectAsync("smtp.gmail.com", 465, true);
-                await client.AuthenticateAsync("maksim290698@gmail.com", "");
+                await client.AuthenticateAsync("maksim290698@gmail.com", "***");
                 await client.SendAsync(emailMessage);
 
                 await client.DisconnectAsync(true);
